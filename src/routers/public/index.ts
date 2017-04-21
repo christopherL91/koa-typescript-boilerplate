@@ -28,7 +28,7 @@ export default (config: Config): Router => {
      * Health check route
      */
     router.get('/healthz', async ctx => {
-        ctx.body = {status: 'OK'};
+        ctx.body = {status: 'OK', git: config.git};
     });
 
     return router;
