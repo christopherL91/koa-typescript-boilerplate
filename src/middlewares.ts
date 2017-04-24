@@ -3,6 +3,8 @@ import * as helmet from 'koa-helmet';
 import * as cors from 'kcors';
 import * as compose from 'koa-compose';
 import * as responsetime from 'koa-response-time';
+import * as conditional from 'koa-conditional-get';
+import * as etag from 'koa-etag';
 
 import Public from './routers/public';
 import Private from './routers/private';
@@ -29,7 +31,9 @@ export default (config: Config) => {
     return compose([
         responsetime(),
         error_handler(),
-        cors(),
+        cors({credentials: true}),
+        conditional(),
+        etag(),
         helmet(),
         bodyParser(),
         compose([open.routes(), open.allowedMethods()]),

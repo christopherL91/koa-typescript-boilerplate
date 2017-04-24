@@ -7,10 +7,15 @@ import Users from './users';
 import Config from '../../interfaces/config';
 
 export default (config: Config): Router => {
-    const router = new Router({prefix: '/api'});
-    router.use(jwt({secret: config.keys.public})); // Secure all the routers
-    
-    const users = Users(config);
-    router.use(compose([users.routes, users.allowedMethods()])); // Attach users router
-    return router;
+    const rootRouter = new Router({prefix: '/api'});
+    rootRouter.use(jwt({secret: config.keys.public}));
+
+    // Add nested routers here.
+    [
+        Users(config),
+    ].forEach(router => {
+        rootRouter.use(router.routes());
+        rootRouter.use(router.allowedMethods());
+    });
+    return rootRouter;
 };

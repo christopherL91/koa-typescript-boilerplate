@@ -12,3 +12,13 @@ export const login: koa.Middleware = convert(validate({
         password: joi.string().required(),
 	}),
 }));
+
+export const user: koa.Middleware = convert(validate({
+    body: joi.object().required().keys({
+        username: joi.string().required(),
+        password: joi.string().required(),
+        information: joi.object().required().keys({
+            name: joi.string().required(),
+        }),
+    }),
+}));

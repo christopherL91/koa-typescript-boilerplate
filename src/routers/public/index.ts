@@ -8,27 +8,18 @@ import * as schemas from './schemas';
 
 import Config from '../../interfaces/config';
 
+import Common from './common';
+import Login from './login';
+
 export default (config: Config): Router => {
     const router = new Router();
-    
-    /**
-     * Login route
-     */
-    router.post('/login', schemas.login, async ctx => {
-        const {username, password} = ctx.request.body;
-        const payload = {msg: 'Hello from public router'};
-        const token = jwt.sign(payload, config.keys.private, {
-            algorithm: 'RS256',
-            expiresIn: '1 days',
-        });
-        ctx.body = {token};
-    });
 
-    /**
-     * Health check route
-     */
-    router.get('/healthz', async ctx => {
-        ctx.body = {status: 'OK', git: config.git};
+    [
+        Login(config),
+        Common(config)
+    ].forEach(r => {
+        router.use(r.routes());
+        router.use(r.allowedMethods());
     });
 
     return router;

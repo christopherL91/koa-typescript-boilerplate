@@ -5,8 +5,8 @@ import * as path from 'path';
 import * as git from 'git-rev-sync';
 
 (function bootstrap() {
-
     const CURRENT_PATH = process.cwd();
+    const NAME = 'koa-typescript-server';
     const {
         PORT = 8080,
         LISTEN = '0.0.0.0',
@@ -27,7 +27,7 @@ import * as git from 'git-rev-sync';
 
     server.listen({port: PORT, host: LISTEN}, () => {
         const {address, port} = server.address();
-        const msg = emoji.emojify(`[Koa-typescript] is listening to ${address}:${port} :rocket:`);
+        const msg = emoji.emojify(`[${NAME}] is listening to ${address}:${port} :rocket:`);
         console.error(msg);
     });
 })();
