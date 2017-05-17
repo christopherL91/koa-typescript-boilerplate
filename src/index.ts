@@ -9,7 +9,7 @@ import * as git from 'git-rev-sync';
     const NAME = 'koa-typescript-server';
     const {
         PORT = 8080,
-        LISTEN = '0.0.0.0',
+        HOST = '0.0.0.0',
         PRIVATE_KEY_PATH = path.resolve(CURRENT_PATH, './keys/private.pem'),
         PUBLIC_KEY_PATH = path.resolve(CURRENT_PATH, './keys/public.pem'),
     } = process.env;
@@ -25,7 +25,7 @@ import * as git from 'git-rev-sync';
         }
     });
 
-    server.listen({port: PORT, host: LISTEN}, () => {
+    server.listen({port: PORT, host: HOST}, () => {
         const {address, port} = server.address();
         const msg = emoji.emojify(`[${NAME}] is listening to ${address}:${port} :rocket:`);
         console.error(msg);

@@ -1,10 +1,9 @@
 import * as Router from 'koa-router';
 import * as jwt from 'koa-jwt';
-import * as compose from 'koa-compose';
-
-import Users from './users';
 
 import Config from '../../interfaces/config';
+
+import Users from './users';
 
 export default (config: Config): Router => {
     const rootRouter = new Router({prefix: '/api'});

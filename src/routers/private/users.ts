@@ -1,5 +1,4 @@
 import * as Router from 'koa-router';
-import * as jwt from 'koa-jwt';
 
 import * as schemas from './schemas';
 
